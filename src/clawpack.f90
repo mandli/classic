@@ -1,6 +1,26 @@
-c
-c
-c
+program clawpack
+
+    use precsion_module
+    use parameter_module
+
+    implicit none
+    
+    ! State arrays
+    real(kind=q_type), allocatable :: q(:,:)
+    real(kind=aux_type), allocatable :: aux(:,:)
+    
+    ! Local storage
+    character(len=*) :: parameter_file
+    
+    ! Parse parameter file
+    parameter_file = 'claw.data'
+    call set_claw_parameters(parameter_file)
+    
+    ! Allocate state arrays
+    allocate(q(num_states,1-num_ghost:))
+    
+end program clawpack
+
 c     ===============================================================
       subroutine claw1ez(maxmx,meqn,mwaves,mbc,maux,mwork,mthlim,
      &                   q,work,aux)
